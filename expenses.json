@@ -1,0 +1,22 @@
+{
+    "1": {
+        "Description": "Clothes",
+        "Amount": "$100",
+        "Date": "2026-10-06"
+    },
+    "2": {
+        "Description": "Lunch",
+        "Amount": "$50",
+        "Date": "2026-10-06"
+    },
+    "3": {
+        "Description": "Breakfast",
+        "Amount": "$60",
+        "Date": "2026-10-06"
+    },
+    "4": {
+        "Description": "Hostel fee",
+        "Amount": "$14000",
+        "Date": "2026-10-06"
+    }
+}
