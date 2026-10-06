@@ -18,5 +18,15 @@
         "Description": "Hostel fee",
         "Amount": "$14000",
         "Date": "2026-10-06"
+    },
+    "5": {
+        "Description": "dinner",
+        "Amount": "$500.0",
+        "Date": "2026-10-06"
+    },
+    "6": {
+        "Description": "laundry",
+        "Amount": "$600.0",
+        "Date": "2026-10-06"
     }
 }

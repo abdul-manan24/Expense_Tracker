@@ -1,3 +1,4 @@
+import argparse
 import os
 from datetime import datetime
 import json
@@ -77,22 +78,37 @@ class ExpenseSheet():
         summary = 0
 
         for id, details in self.expenses.items():
-            summary += details["Amount"]
+            amount = details["Amount"].strip("$")
+            summary += float(amount)
 
         print(f"Total expenses: ${summary}")
 
-def take_input():
-    pass
+def main():
+    expense_sheet1 = ExpenseSheet()
+
+    parser = argparse.ArgumentParser("A simple CLI application to track and manage expenses.")
+
+    parser.add_argument("Function", type=str.lower, help="The name of function to call")
+
+    parser.add_argument("-D", "--description", type=str.lower, help="The description of expense")
+
+    parser.add_argument("-a", "--amount", type=float, help="The amount spent on expense")
+
+    parser.add_argument("-id", "--id", type=int, help="The id of expense")
+
+    args = parser.parse_args()
+
+    if args.Function == "add":
+        expense_sheet1.add_expense(args.description, args.amount)
+    elif args.Function == "delete":
+        expense_sheet1.delete_expense(args.id)
+    elif args.Function == "update":
+        expense_sheet1.update_expense(args.description, args.amount, args.id)
+    elif args.Function == "list":
+        expense_sheet1.list_expenses()
+    elif args.Function == "summary":
+        expense_sheet1.summarize_expenses()
 
 if __name__ == "__main__":
-    expense_sheet1 = ExpenseSheet()
-    # expense_sheet1.add_expense("xyz", 20)
-    # expense_sheet1.add_expense("abc", 30)
-    # expense_sheet1.add_expense("dcs", 40)
-    # expense_sheet1.add_expense("efg", 30)
-    expense_sheet1.update_expense("Clothes", 100, 1)
-    expense_sheet1.update_expense("Lunch", 50, 2)
-    expense_sheet1.update_expense("Breakfast", 60, 3)
-    expense_sheet1.update_expense("Hostel fee", 14000, 4)
-    # expense_sheet1.summarize_expenses()
-    expense_sheet1.list_expenses()
+    main()
+    
