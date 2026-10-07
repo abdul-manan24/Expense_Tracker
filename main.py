@@ -94,9 +94,12 @@ class ExpenseSheet():
             with open("expenses.json", "r") as file:
                 self.expenses = json.load(file)
 
-            self.expenses[id]["Description"] = description
-            self.expenses[id]["Amount"] = f"${amount}"
-            self.expenses[id]["Date"] = current_date
+            try:
+                self.expenses[id]["Description"] = description
+                self.expenses[id]["Amount"] = f"${amount}"
+                self.expenses[id]["Date"] = current_date
+            except KeyError as ke:
+                print("Error occured:", ke) 
 
             with open("expenses.json", "w") as file:
                 json.dump(self.expenses, file, indent=4)
