@@ -20,6 +20,7 @@ class ExpenseSheet():
 
         """
 
+        # To check if add argument is provided without amount and description.
         if amount is None and description is None:
             print("Please write amount and description in input section!\nfor user guide see readme.md file")
             return
@@ -29,7 +30,8 @@ class ExpenseSheet():
         if description is None:
             print("Please write description in input section!\nfor user guide see readme.md file")
             return
-        
+
+        # save current date in variable
         current_date = datetime.today()
         current_date = current_date.strftime("%Y-%m-%d")
 
@@ -72,6 +74,8 @@ class ExpenseSheet():
 
         try:
 
+            # To check if update argument is provided without amount, description or id.
+
             if amount is None:
                 print("Please write amount in input section!\nfor user guide see readme.md file")
                 return
@@ -81,9 +85,11 @@ class ExpenseSheet():
             if id is None:
                 print("Please write id in input section!\nfor user guide see readme.md file")
                 return
-            
+
+            # convert id to str so it can match with id from json file.
             id = str(id)
-    
+
+            # Terminate function if file is empty.    
             if os.path.getsize("expenses.json") == 0:
                 print("File is empty, add expenses first!")
                 return
@@ -94,12 +100,9 @@ class ExpenseSheet():
             with open("expenses.json", "r") as file:
                 self.expenses = json.load(file)
 
-            try:
-                self.expenses[id]["Description"] = description
-                self.expenses[id]["Amount"] = f"${amount}"
-                self.expenses[id]["Date"] = current_date
-            except KeyError as ke:
-                print("Error occured:", ke) 
+            self.expenses[id]["Description"] = description
+            self.expenses[id]["Amount"] = f"${amount}"
+            self.expenses[id]["Date"] = current_date 
 
             with open("expenses.json", "w") as file:
                 json.dump(self.expenses, file, indent=4)
@@ -108,8 +111,8 @@ class ExpenseSheet():
 
         except FileNotFoundError as e:
             print("Error occured:", e)
-        except KeyError as ke:
-            print("Error occured:", ke)
+        except KeyError as key:
+            print(f"Id {key} doesn't exist in file!")
 
     def delete_expense(self, id):
         """Deletes expense from expense.json.
@@ -123,10 +126,12 @@ class ExpenseSheet():
             """
         try:
 
+            # To check if delete argument is provided without id.
             if id is None:
                 print("Please write id in input section!\nfor user guide see readme.md file")
                 return
-            
+
+            # Type conversion of id is necessary because text from json file is always in string.
             id = str(id)
             
             if os.path.getsize("expenses.json") == 0:
@@ -134,7 +139,6 @@ class ExpenseSheet():
 
             with open("expenses.json", "r") as file:
                 self.expenses = json.load(file)
-                return
 
             del self.expenses[id]
 
@@ -142,8 +146,9 @@ class ExpenseSheet():
                 json.dump(self.expenses, file, indent=4)
 
             print(f"Task {id} deleted successfully!")
-        except KeyError as ke:
-            print("Error occurred", ke)
+
+        except KeyError as key:
+            print(f"Id {key} doesn't exist in file!")
         except FileNotFoundError as e:
             print("Error occurred", e)
 
@@ -188,6 +193,8 @@ class ExpenseSheet():
             with open("expenses.json", "r") as file:
                 self.expenses = json.load(file)
 
+            # If month argument is not given then it will summarize all 
+            # the expenses otherwise, for given month only.
             if month is None:
                 
                 summary = 0
@@ -242,6 +249,8 @@ def main():
         expense_sheet1.list_expenses()
     elif args.Function == "summary":
         expense_sheet1.summarize_expenses(args.month)
+    else:
+        print("Incorrect command! please see readme.md for user guide")
 
 if __name__ == "__main__":
     main()
