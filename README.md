@@ -35,6 +35,6 @@ python main.py summary
 python main.py summary (--month or -m) 10
 
 <h2>Example</h2>
-<img src="D:\Python Learning\Python Projects\Expense_Tracker\Images\Summary_Example_Screenshot.png" alt="Summary_Example_Screenshot">
+<img src="D:\Python Learning\Python Projects\Expense_Tracker\Images" alt="Summary_Example_Screenshot">
 
 <a href="https://roadmap.sh/projects/expense-tracker">See Project</a>
